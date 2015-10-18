@@ -1,0 +1,34 @@
+{% extends "cg.flml.template" %}
+
+{% macro su_options() %}
+  <nu_bar_optimal/>
+  <nu_scale name="0.5">
+    <real_value shape="1" rank="0">0.5</real_value>
+  </nu_scale>
+{% endmacro %}
+
+{% block tracer_spatial_discretisation %}
+<spatial_discretisation>
+  <continuous_galerkin>
+    <stabilisation>
+      {% if stabilisation == 'SUPG' %}
+      <streamline_upwind_petrov_galerkin>
+	{{ su_options() }}
+      </streamline_upwind_petrov_galerkin>
+      {% elif stabilisation == 'SU' %}
+      <streamline_upwind>
+	{{ su_options() }}
+      </streamline_upwind>
+      {% else %}
+      <no_stabilisation/>
+      {% endif %}
+    </stabilisation>
+    <advection_terms/>
+    <mass_terms/>
+  </continuous_galerkin>
+  <conservative_advection>
+    <real_value rank="0">1.0</real_value>
+  </conservative_advection>
+</spatial_discretisation>
+{% endblock %}
+

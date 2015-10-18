@@ -1,0 +1,18 @@
+lx = $domain_length;
+nx = $nx;
+dx = $dx;
+
+Point(1) = {lx, 0, 0, dx};
+
+// for some reason mesh adaptivity complains 
+// if this extrusion isn't done in reverse
+Extrude {-lx, 0, 0} {
+  Point{1}; Layers{nx}; 
+}
+
+// end boundaries
+Physical Point(1) = {1};
+Physical Point(2) = {2};
+
+Physical Line(3) = {1};
+

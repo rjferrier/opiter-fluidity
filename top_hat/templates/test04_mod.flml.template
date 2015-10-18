@@ -1,0 +1,28 @@
+{% extends "cv.flml.template" %}
+
+{% block tracer_spatial_discretisation %}
+<spatial_discretisation>
+  <control_volumes>
+    <face_value name="HyperC">
+      <courant_number name="ControlVolumeCFLNumber"/>
+    </face_value>
+    <diffusion_scheme name="ElementGradient"/>
+  </control_volumes>
+  <conservative_advection>
+    <real_value rank="0">1.0</real_value>
+    </conservative_advection>"""
+</spatial_discretisation>
+{% endblock %}
+
+{% block tracer_temporal_discretisation %}
+<temporal_discretisation>
+  <theta>
+    <real_value rank="0">0.0</real_value>
+  </theta>
+  <control_volumes>
+    <pivot_theta>
+      <real_value rank="0">0.0</real_value>
+    </pivot_theta>
+  </control_volumes>
+</temporal_discretisation>
+{% endblock %}

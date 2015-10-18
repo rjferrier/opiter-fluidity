@@ -1,0 +1,30 @@
+{% extends "base.flml.template" %}
+
+{% block tracer_spatial_discretisation %}
+<spatial_discretisation>
+  <continuous_galerkin>
+    <stabilisation>
+      <streamline_upwind_petrov_galerkin>
+        <nu_bar_optimal/>
+        <nu_scale name="0.5">
+          <real_value shape="1" rank="0">0.5</real_value>
+        </nu_scale>
+      </streamline_upwind_petrov_galerkin>
+    </stabilisation>
+    <advection_terms/>
+    <mass_terms/>
+  </continuous_galerkin>
+  <conservative_advection>
+    <real_value rank="0">1.0</real_value>
+  </conservative_advection>
+</spatial_discretisation>
+{% endblock %}
+
+{% block tracer_temporal_discretisation %}
+<temporal_discretisation>
+  <theta>
+    <real_value rank="0">0.5</real_value>
+  </theta>
+</temporal_discretisation>
+{% endblock %}
+

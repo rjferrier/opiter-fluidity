@@ -1,0 +1,54 @@
+{% extends "base.flml.template" %}
+
+{% block other_meshes %}
+<mesh name="DGMesh">
+  <from_mesh>
+    <mesh name="CoordinateMesh"/>
+    <mesh_continuity>
+      <string_value>discontinuous</string_value>
+    </mesh_continuity>
+    <stat>
+      <exclude_from_stat/>
+    </stat>
+  </from_mesh>
+</mesh>
+{% endblock %}
+
+{% block tracer_spatial_discretisation %}
+<spatial_discretisation>
+  <discontinuous_galerkin>
+    <advection_scheme>
+      <upwind/>
+      <integrate_advection_by_parts>
+        <twice/>
+      </integrate_advection_by_parts>
+    </advection_scheme>
+    <diffusion_scheme>
+      <compact_discontinuous_galerkin/>
+    </diffusion_scheme>
+    <slope_limiter name="Vertex_Based"/>
+  </discontinuous_galerkin>
+  <conservative_advection>
+    <real_value rank="0">1.0</real_value>
+  </conservative_advection>
+</spatial_discretisation>
+{% endblock %}
+
+{% block tracer_temporal_discretisation %}
+<temporal_discretisation>
+  <theta>
+    <real_value rank="0">0.5</real_value>
+  </theta>
+  <discontinuous_galerkin>
+    <maximum_courant_number_per_subcycle>
+      <real_value rank="0">0.5</real_value>
+    </maximum_courant_number_per_subcycle>
+  </discontinuous_galerkin>
+</temporal_discretisation>
+{% endblock %}
+
+{% block tracer_galerkin_projection %}
+<galerkin_projection>
+  <discontinuous/>
+</galerkin_projection>
+{% endblock %}
